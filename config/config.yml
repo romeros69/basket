@@ -5,6 +5,10 @@ app:
 http:
   port: '8080'
 
+mongo:
+  mongo_url: ""
+  mongo_db: ""
+
 logger:
   log_level: 'debug'
   rollbar_env: 'basket'
