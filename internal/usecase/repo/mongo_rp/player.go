@@ -2,10 +2,13 @@ package mongo_rp
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"github.com/romeros69/basket/internal/apperrors"
 	"github.com/romeros69/basket/internal/entity"
 	"github.com/romeros69/basket/internal/usecase"
 	mongodb "github.com/romeros69/basket/pkg/mongo"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -48,8 +51,24 @@ func (p *PlayerRepo) UpdatePlayer(ctx context.Context, player *entity.Player) (s
 }
 
 func (p *PlayerRepo) GetPlayer(ctx context.Context, playerID string) (*entity.Player, error) {
-	//TODO implement me
-	panic("implement me")
+	objID, err := primitive.ObjectIDFromHex(playerID)
+	if err != nil {
+		return nil, apperrors.ErrInvalidPlayerID
+	}
+
+	filter := bson.M{
+		"_id": objID,
+	}
+
+	player := new(entity.Player)
+	if err := p.mngCollection.FindOne(ctx, filter).Decode(player); err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, apperrors.ErrPlayerNotFound
+		}
+		return nil, fmt.Errorf("mongo error: %w", err)
+	}
+
+	return player, nil
 }
 
 func (p *PlayerRepo) DeletePlayer(ctx context.Context, playerID string) error {

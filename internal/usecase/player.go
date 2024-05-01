@@ -27,8 +27,7 @@ func (p *PlayerUC) UpdatePlayer(ctx context.Context, player *entity.Player) (str
 }
 
 func (p *PlayerUC) GetPlayer(ctx context.Context, playerID string) (*entity.Player, error) {
-	//TODO implement me
-	panic("implement me")
+	return p.playerRp.GetPlayer(ctx, playerID)
 }
 
 func (p *PlayerUC) DeletePlayer(ctx context.Context, playerID string) error {
