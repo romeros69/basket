@@ -6,8 +6,8 @@ http:
   port: '8080'
 
 mongo:
-  mongo_url: ""
-  mongo_db: ""
+  mongo_url: "mongodb://mongo:mongo@localhost:27017/"
+  mongo_db: "players"
 
 logger:
   log_level: 'debug'

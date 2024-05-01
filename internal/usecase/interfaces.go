@@ -1,7 +1,26 @@
 package usecase
 
-import "context"
+import (
+	"context"
+	"github.com/romeros69/basket/internal/entity"
+)
 
-type HelloWorld interface {
-	Hello(ctx context.Context) (string, error)
-}
+type (
+	// Player - use case
+	Player interface {
+		CreatePlayer(ctx context.Context, player *entity.Player) (string, error)
+		UpdatePlayer(ctx context.Context, player *entity.Player) (string, error)
+		GetPlayer(ctx context.Context, playerID string) (*entity.Player, error)
+		DeletePlayer(ctx context.Context, playerID string) error
+		GetPlayerList(ctx context.Context) ([]*entity.Player, error)
+	}
+
+	// PlayerRp - mongodb
+	PlayerRp interface {
+		CreatePlayer(ctx context.Context, player *entity.Player) (string, error)
+		UpdatePlayer(ctx context.Context, player *entity.Player) (string, error)
+		GetPlayer(ctx context.Context, playerID string) (*entity.Player, error)
+		DeletePlayer(ctx context.Context, playerID string) error
+		GetPlayerList(ctx context.Context) ([]*entity.Player, error)
+	}
+)

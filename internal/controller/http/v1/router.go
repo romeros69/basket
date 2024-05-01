@@ -14,7 +14,7 @@ import (
 // @version     1.0
 // @host        localhost:8080
 // @BasePath    /v1
-func NewRouter(handler *gin.Engine, hw usecase.HelloWorld, l logger.Interface) {
+func NewRouter(handler *gin.Engine, p usecase.Player, l logger.Interface) {
 	handler.Use(gin.Logger())
 	handler.Use(gin.Recovery())
 
@@ -23,6 +23,6 @@ func NewRouter(handler *gin.Engine, hw usecase.HelloWorld, l logger.Interface) {
 
 	h := handler.Group("/v1")
 	{
-		newHelloWorldRoutes(h, hw, l)
+		newPlayerRoutes(h, p, l)
 	}
 }

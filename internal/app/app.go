@@ -3,6 +3,8 @@ package app
 import (
 	"fmt"
 	"github.com/romeros69/basket/internal/usecase"
+	"github.com/romeros69/basket/internal/usecase/repo/mongo_rp"
+	"github.com/romeros69/basket/pkg/mongo"
 	"os"
 	"os/signal"
 	"syscall"
@@ -17,12 +19,21 @@ import (
 func Run(cfg *config.Config) {
 	l := logger.New(cfg.Log.Level)
 
+	//// MongoDB
+	mongoDB, err := mongo.New(cfg)
+	if err != nil {
+		panic(err)
+	}
+
+	// Repository
+	playerRepo := mongo_rp.NewPlayerRepo(mongoDB, "players")
+
 	// Use case
-	translationUseCase := usecase.NewHelloWorld()
+	playerUseCase := usecase.NewPlayerUC(playerRepo)
 
 	// HTTP Server
 	handler := gin.New()
-	v1.NewRouter(handler, translationUseCase, l)
+	v1.NewRouter(handler, playerUseCase, l)
 	httpServer := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 
 	l.Info("server is start")
