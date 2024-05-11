@@ -119,6 +119,13 @@ const docTemplate = `{
                 "operationId": "update-player",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Enter id player",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Enter new player info for update",
                         "name": "player",
                         "in": "body",
@@ -126,7 +133,43 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/entity.Player"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Player"
+                        }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete player by id",
+                "tags": [
+                    "player"
+                ],
+                "summary": "Delete player",
+                "operationId": "delete-player",
+                "parameters": [
                     {
                         "type": "string",
                         "description": "Enter id player",
@@ -136,11 +179,8 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/entity.Player"
-                        }
+                    "204": {
+                        "description": "No Content"
                     },
                     "400": {
                         "description": "Bad Request",

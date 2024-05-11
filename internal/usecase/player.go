@@ -30,8 +30,7 @@ func (p *PlayerUC) GetPlayer(ctx context.Context, playerID string) (*entity.Play
 }
 
 func (p *PlayerUC) DeletePlayer(ctx context.Context, playerID string) error {
-	//TODO implement me
-	panic("implement me")
+	return p.playerRp.DeletePlayer(ctx, playerID)
 }
 
 func (p *PlayerUC) GetPlayerList(ctx context.Context) ([]*entity.Player, error) {

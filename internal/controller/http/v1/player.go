@@ -26,6 +26,7 @@ func newPlayerRoutes(handler *gin.RouterGroup, p usecase.Player, l logger.Interf
 		h.POST("", r.createPlayer)
 		h.GET("/:id", r.getPlayer)
 		h.PUT("/:id", r.updatePlayer)
+		h.DELETE("/:id", r.deletePlayer)
 	}
 }
 
@@ -91,8 +92,8 @@ func (pr *playerRoutes) getPlayer(c *gin.Context) {
 // @ID update-player
 // @Accept json
 // @Produce json
-// @Param player body entity.Player true "Enter new player info for update"
 // @Param id path string true "Enter id player"
+// @Param player body entity.Player true "Enter new player info for update"
 // @Success 200 {object} entity.Player
 // @Failure 400 {object} errResponse
 // @Failure 404 {object} errResponse
@@ -116,6 +117,28 @@ func (pr *playerRoutes) updatePlayer(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, newPlayer)
+}
+
+// @Summary Delete player
+// @Tags player
+// @Description Delete player by id
+// @ID delete-player
+// @Param id path string true "Enter id player"
+// @Success 204 {object} nil
+// @Failure 400 {object} errResponse
+// @Failure 404 {object} errResponse
+// @Failure 500 {object} errResponse
+// @Router /player/{id} [delete]
+func (pr *playerRoutes) deletePlayer(c *gin.Context) {
+	playerID := c.Param("id")
+
+	if err := pr.p.DeletePlayer(c.Request.Context(), playerID); err != nil {
+		pr.l.Error(err.Error())
+		prepareError(c, err)
+		return
+	}
+
+	c.JSON(http.StatusNoContent, nil)
 }
 
 func prepareError(c *gin.Context, err error) {
