@@ -1,6 +1,40 @@
 basePath: /v1
 definitions:
-  v1.response:
+  entity.Player:
+    properties:
+      age:
+        default: 34
+        type: integer
+      citizenship:
+        default: USA
+        type: string
+      height:
+        default: 201
+        type: integer
+      middle_name:
+        type: string
+      name:
+        default: Jimmi
+        type: string
+      role:
+        default: heavy forward
+        type: string
+      surname:
+        default: Butler
+        type: string
+      team:
+        default: Miami Heat
+        type: string
+      weight:
+        default: 104
+        type: integer
+    type: object
+  v1.createPlayerResp:
+    properties:
+      playerID:
+        type: string
+    type: object
+  v1.errResponse:
     properties:
       error:
         example: message
@@ -13,24 +47,65 @@ info:
   title: Basket LAB
   version: "1.0"
 paths:
-  /test-hello/hi:
-    get:
+  /player:
+    post:
       consumes:
       - application/json
-      description: Print hello world
-      operationId: hello-world
+      description: Create new player
+      operationId: create-player
+      parameters:
+      - description: Enter new player info
+        in: body
+        name: player
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Player'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.createPlayerResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Create player
+      tags:
+      - player
+  /player/{id}:
+    get:
+      description: Get player by id
+      operationId: get-player
+      parameters:
+      - description: id пользователя
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: '#/definitions/entity.Player'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/v1.response'
-      summary: Hello world
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get player
       tags:
-      - hello
+      - player
+schemes:
+- http
 swagger: "2.0"

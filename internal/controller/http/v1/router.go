@@ -13,6 +13,7 @@ import (
 // @description Basket no-sql lab
 // @version     1.0
 // @host        localhost:8080
+// @schemes 	http
 // @BasePath    /v1
 func NewRouter(handler *gin.Engine, p usecase.Player, l logger.Interface) {
 	handler.Use(gin.Logger())

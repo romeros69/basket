@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/romeros69/basket/internal/apperrors"
 	"github.com/romeros69/basket/internal/entity"
 	"github.com/romeros69/basket/internal/usecase"
@@ -42,7 +43,8 @@ func (p *PlayerRepo) CreatePlayer(ctx context.Context, player *entity.Player) (s
 	if err != nil {
 		return "", fmt.Errorf("create player: %w", err)
 	}
-	return res.InsertedID.(primitive.ObjectID).String(), nil
+	spew.Dump(res.InsertedID.(primitive.ObjectID).String())
+	return res.InsertedID.(primitive.ObjectID).Hex(), nil
 }
 
 func (p *PlayerRepo) UpdatePlayer(ctx context.Context, player *entity.Player) (string, error) {

@@ -1,13 +1,13 @@
 package entity
 
 type Player struct {
-	Name        string `json:"name,omitempty"`
-	Surname     string `json:"surname,omitempty"`
+	Name        string `json:"name,omitempty" default:"Jimmi"`
+	Surname     string `json:"surname,omitempty" default:"Butler"`
 	MiddleName  string `json:"middle_name,omitempty"`
-	Age         int    `json:"age,omitempty"`
-	Height      int    `json:"height,omitempty"`
-	Weight      int    `json:"weight,omitempty"`
-	Team        string `json:"team,omitempty"`
-	Role        string `json:"role,omitempty"`
-	Citizenship string `json:"citizenship,omitempty"`
+	Age         int    `json:"age,omitempty" default:"34"`
+	Height      int    `json:"height,omitempty" default:"201"`
+	Weight      int    `json:"weight,omitempty" default:"104"`
+	Team        string `json:"team,omitempty" default:"Miami Heat"`
+	Role        string `json:"role,omitempty" default:"heavy forward"`
+	Citizenship string `json:"citizenship,omitempty" default:"USA"`
 }

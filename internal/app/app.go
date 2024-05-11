@@ -8,7 +8,9 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/romeros69/basket/config"
 	v1 "github.com/romeros69/basket/internal/controller/http/v1"
@@ -33,6 +35,14 @@ func Run(cfg *config.Config) {
 
 	// HTTP Server
 	handler := gin.New()
+	handler.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"*"},
+		AllowHeaders:     []string{"Access-Control-Allow-Origin", "Content-Type", "Access-Control-Allow-Credentials", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 	v1.NewRouter(handler, playerUseCase, l)
 	httpServer := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 

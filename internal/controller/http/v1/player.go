@@ -28,6 +28,20 @@ func newPlayerRoutes(handler *gin.RouterGroup, p usecase.Player, l logger.Interf
 	}
 }
 
+type createPlayerResp struct {
+	PlayerID string `json:"playerID"`
+}
+
+// @Summary Create player
+// @Tags player
+// @Description Create new player
+// @ID create-player
+// @Accept json
+// @Produce json
+// @Param player body entity.Player true "Enter new player info"
+// @Success 201 {object} createPlayerResp
+// @Failure 500 {object} errResponse
+// @Router /player [post]
 func (pr *playerRoutes) createPlayer(c *gin.Context) {
 	var playerParam entity.Player
 	if err := c.ShouldBindJSON(&playerParam); err != nil {
@@ -43,9 +57,20 @@ func (pr *playerRoutes) createPlayer(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, playerID)
+	c.JSON(http.StatusCreated, createPlayerResp{PlayerID: playerID})
 }
 
+// @Summary Get player
+// @Tags player
+// @Description Get player by id
+// @ID get-player
+// @Produce json
+// @Param id path string true "id пользователя"
+// @Success 200 {object} entity.Player
+// @Failure 400 {object} errResponse
+// @Failure 404 {object} errResponse
+// @Failure 500 {object} errResponse
+// @Router /player/{id} [get]
 func (pr *playerRoutes) getPlayer(c *gin.Context) {
 	playerID := c.Param("id")
 
