@@ -47,9 +47,26 @@ func (p *PlayerRepo) CreatePlayer(ctx context.Context, player *entity.Player) (s
 	return res.InsertedID.(primitive.ObjectID).Hex(), nil
 }
 
-func (p *PlayerRepo) UpdatePlayer(ctx context.Context, player *entity.Player) (string, error) {
-	//TODO implement me
-	panic("implement me")
+func (p *PlayerRepo) UpdatePlayer(ctx context.Context, playerID string, player *entity.Player) (*entity.Player, error) {
+	objID, err := primitive.ObjectIDFromHex(playerID)
+	if err != nil {
+		return nil, apperrors.ErrInvalidPlayerID
+	}
+
+	filter := bson.M{
+		"_id": objID,
+	}
+
+	updatedPlayer := new(entity.Player)
+	res := p.mngCollection.FindOneAndReplace(ctx, filter, player)
+	if err = res.Decode(updatedPlayer); err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, apperrors.ErrPlayerNotFound
+		}
+		return nil, fmt.Errorf("mongo error: %w", err)
+	}
+
+	return player, nil
 }
 
 func (p *PlayerRepo) GetPlayer(ctx context.Context, playerID string) (*entity.Player, error) {

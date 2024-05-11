@@ -21,9 +21,8 @@ func (p *PlayerUC) CreatePlayer(ctx context.Context, player *entity.Player) (str
 	return p.playerRp.CreatePlayer(ctx, player)
 }
 
-func (p *PlayerUC) UpdatePlayer(ctx context.Context, player *entity.Player) (string, error) {
-	//TODO implement me
-	panic("implement me")
+func (p *PlayerUC) UpdatePlayer(ctx context.Context, playerID string, player *entity.Player) (*entity.Player, error) {
+	return p.playerRp.UpdatePlayer(ctx, playerID, player)
 }
 
 func (p *PlayerUC) GetPlayer(ctx context.Context, playerID string) (*entity.Player, error) {

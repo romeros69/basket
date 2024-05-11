@@ -25,6 +25,7 @@ func newPlayerRoutes(handler *gin.RouterGroup, p usecase.Player, l logger.Interf
 	{
 		h.POST("", r.createPlayer)
 		h.GET("/:id", r.getPlayer)
+		h.PUT("/:id", r.updatePlayer)
 	}
 }
 
@@ -82,6 +83,39 @@ func (pr *playerRoutes) getPlayer(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, player)
+}
+
+// @Summary Update player
+// @Tags player
+// @Description Update player by id
+// @ID update-player
+// @Accept json
+// @Produce json
+// @Param player body entity.Player true "Enter new player info for update"
+// @Param id path string true "Enter id player"
+// @Success 200 {object} entity.Player
+// @Failure 400 {object} errResponse
+// @Failure 404 {object} errResponse
+// @Failure 500 {object} errResponse
+// @Router /player/{id} [put]
+func (pr *playerRoutes) updatePlayer(c *gin.Context) {
+	playerID := c.Param("id")
+
+	var playerParam entity.Player
+	if err := c.ShouldBindJSON(&playerParam); err != nil {
+		pr.l.Error(err.Error())
+		prepareError(c, err)
+		return
+	}
+
+	newPlayer, err := pr.p.UpdatePlayer(c.Request.Context(), playerID, &playerParam)
+	if err != nil {
+		pr.l.Error(err.Error())
+		prepareError(c, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, newPlayer)
 }
 
 func prepareError(c *gin.Context, err error) {

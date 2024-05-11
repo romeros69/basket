@@ -5,6 +5,8 @@ import (
 	_ "github.com/romeros69/basket/docs"
 	"github.com/romeros69/basket/internal/usecase"
 	"github.com/romeros69/basket/pkg/logger"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // NewRouter
@@ -19,8 +21,8 @@ func NewRouter(handler *gin.Engine, p usecase.Player, l logger.Interface) {
 	handler.Use(gin.Logger())
 	handler.Use(gin.Recovery())
 
-	//swaggerHandler := ginSwagger.DisablingWrapHandler(swaggerFiles.Handler, "DISABLE_SWAGGER_HTTP_HANDLER")
-	//handler.GET("/swagger/*any", swaggerHandler)
+	swaggerHandler := ginSwagger.DisablingWrapHandler(swaggerFiles.Handler, "DISABLE_SWAGGER_HTTP_HANDLER")
+	handler.GET("/swagger/*any", swaggerHandler)
 
 	h := handler.Group("/v1")
 	{

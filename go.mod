@@ -8,6 +8,8 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/rs/zerolog v1.32.0
+	github.com/swaggo/files v1.0.1
+	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.8.12
 	go.mongodb.org/mongo-driver v1.15.0
 )

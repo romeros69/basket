@@ -9,7 +9,7 @@ type (
 	// Player - use case
 	Player interface {
 		CreatePlayer(ctx context.Context, player *entity.Player) (string, error)
-		UpdatePlayer(ctx context.Context, player *entity.Player) (string, error)
+		UpdatePlayer(ctx context.Context, playerID string, player *entity.Player) (*entity.Player, error)
 		GetPlayer(ctx context.Context, playerID string) (*entity.Player, error)
 		DeletePlayer(ctx context.Context, playerID string) error
 		GetPlayerList(ctx context.Context) ([]*entity.Player, error)
@@ -18,7 +18,7 @@ type (
 	// PlayerRp - mongodb
 	PlayerRp interface {
 		CreatePlayer(ctx context.Context, player *entity.Player) (string, error)
-		UpdatePlayer(ctx context.Context, player *entity.Player) (string, error)
+		UpdatePlayer(ctx context.Context, playerID string, player *entity.Player) (*entity.Player, error)
 		GetPlayer(ctx context.Context, playerID string) (*entity.Player, error)
 		DeletePlayer(ctx context.Context, playerID string) error
 		GetPlayerList(ctx context.Context) ([]*entity.Player, error)
