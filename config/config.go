@@ -10,9 +10,10 @@ const pathToConfig = "./config/config.yml"
 
 type (
 	Config struct {
-		App  `yaml:"app"`
-		HTTP `yaml:"http"`
-		Log  `yaml:"logger"`
+		App   `yaml:"app"`
+		HTTP  `yaml:"http"`
+		Log   `yaml:"logger"`
+		Mongo `yaml:"mongo"`
 	}
 
 	App struct {
@@ -22,6 +23,11 @@ type (
 
 	HTTP struct {
 		Port string `env-required:"true" yaml:"port" env:"HTTP_PORT"`
+	}
+
+	Mongo struct {
+		MongoURL string `env-required:"true" yaml:"mongo_url" env:"MONGO_URL"`
+		MongoDB  string `env-required:"true" yaml:"mongo_db" env:"MONGO_DB"`
 	}
 
 	Log struct {

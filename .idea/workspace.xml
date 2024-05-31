@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fce0c3e7-9f36-4daf-8abc-f3357968ff8d" name="Changes" comment="" />
+    <list default="true" id="fce0c3e7-9f36-4daf-8abc-f3357968ff8d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/internal/controller/http/v1/player.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/controller/http/v1/player.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/usecase/player.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/usecase/player.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/usecase/repo/mongo_rp/player.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/usecase/repo/mongo_rp/player.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +50,11 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/usecase" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="basket" />

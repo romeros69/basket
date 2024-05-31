@@ -16,9 +16,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/test-hello/hi": {
-            "get": {
-                "description": "Print hello world",
+        "/player": {
+            "post": {
+                "description": "Create new player",
                 "consumes": [
                     "application/json"
                 ],
@@ -26,21 +26,178 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "hello"
+                    "player"
                 ],
-                "summary": "Hello world",
-                "operationId": "hello-world",
-                "responses": {
-                    "200": {
-                        "description": "OK",
+                "summary": "Create player",
+                "operationId": "create-player",
+                "parameters": [
+                    {
+                        "description": "Enter new player info",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/entity.Player"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/v1.createPlayerResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/v1.response"
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/player/{id}": {
+            "get": {
+                "description": "Get player by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "player"
+                ],
+                "summary": "Get player",
+                "operationId": "get-player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id пользователя",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update player by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "player"
+                ],
+                "summary": "Update player",
+                "operationId": "update-player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id player",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Enter new player info for update",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Player"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete player by id",
+                "tags": [
+                    "player"
+                ],
+                "summary": "Delete player",
+                "operationId": "delete-player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id player",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
                         }
                     }
                 }
@@ -48,7 +205,55 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "v1.response": {
+        "entity.Player": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer",
+                    "default": 34
+                },
+                "citizenship": {
+                    "type": "string",
+                    "default": "USA"
+                },
+                "height": {
+                    "type": "integer",
+                    "default": 201
+                },
+                "middle_name": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "default": "Jimmi"
+                },
+                "role": {
+                    "type": "string",
+                    "default": "heavy forward"
+                },
+                "surname": {
+                    "type": "string",
+                    "default": "Butler"
+                },
+                "team": {
+                    "type": "string",
+                    "default": "Miami Heat"
+                },
+                "weight": {
+                    "type": "integer",
+                    "default": 104
+                }
+            }
+        },
+        "v1.createPlayerResp": {
+            "type": "object",
+            "properties": {
+                "playerID": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.errResponse": {
             "type": "object",
             "properties": {
                 "error": {
@@ -65,7 +270,7 @@ var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
 	BasePath:         "/v1",
-	Schemes:          []string{},
+	Schemes:          []string{"http"},
 	Title:            "Basket LAB",
 	Description:      "Basket no-sql lab",
 	InfoInstanceName: "swagger",
