@@ -111,14 +111,14 @@ func (p *PlayerRepo) DeletePlayer(ctx context.Context, playerID string) error {
 }
 
 func (p *PlayerRepo) GetPlayerList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Player, error) {
-	cursor, err := p.mngCollection.Find(context.Background(), bson.M{}, options.Find().SetLimit(pageSize).SetSkip((pageNumber-1)*pageSize))
+	cursor, err := p.mngCollection.Find(ctx, bson.M{}, options.Find().SetLimit(pageSize).SetSkip((pageNumber-1)*pageSize))
 	if err != nil {
 		return nil, fmt.Errorf("mongo error: %w", err)
 	}
-	defer cursor.Close(context.Background())
+	defer cursor.Close(ctx)
 
 	var players []*entity.Player
-	for cursor.Next(context.Background()) {
+	for cursor.Next(ctx) {
 		var player *entity.Player
 		err := cursor.Decode(&player)
 		if err != nil {
