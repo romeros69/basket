@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+
 	"github.com/romeros69/basket/internal/entity"
 )
 
@@ -33,7 +34,6 @@ func (p *PlayerUC) DeletePlayer(ctx context.Context, playerID string) error {
 	return p.playerRp.DeletePlayer(ctx, playerID)
 }
 
-func (p *PlayerUC) GetPlayerList(ctx context.Context) ([]*entity.Player, error) {
-	//TODO implement me
-	panic("implement me")
+func (p *PlayerUC) GetPlayerList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Player, error) {
+	return p.playerRp.GetPlayerList(ctx, pageSize, pageNumber)
 }

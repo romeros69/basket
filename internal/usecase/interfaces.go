@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+
 	"github.com/romeros69/basket/internal/entity"
 )
 
@@ -12,7 +13,7 @@ type (
 		UpdatePlayer(ctx context.Context, playerID string, player *entity.Player) (*entity.Player, error)
 		GetPlayer(ctx context.Context, playerID string) (*entity.Player, error)
 		DeletePlayer(ctx context.Context, playerID string) error
-		GetPlayerList(ctx context.Context) ([]*entity.Player, error)
+		GetPlayerList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Player, error)
 	}
 
 	// PlayerRp - mongodb
@@ -21,6 +22,6 @@ type (
 		UpdatePlayer(ctx context.Context, playerID string, player *entity.Player) (*entity.Player, error)
 		GetPlayer(ctx context.Context, playerID string) (*entity.Player, error)
 		DeletePlayer(ctx context.Context, playerID string) error
-		GetPlayerList(ctx context.Context) ([]*entity.Player, error)
+		GetPlayerList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Player, error)
 	}
 )

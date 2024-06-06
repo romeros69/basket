@@ -53,6 +53,53 @@
                 }
             }
         },
+        "/player/list": {
+            "get": {
+                "description": "Get player list",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "player"
+                ],
+                "summary": "Get player list",
+                "operationId": "get-player-list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter page size",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter page number",
+                        "name": "page_number",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/player/{id}": {
             "get": {
                 "description": "Get player by id",
