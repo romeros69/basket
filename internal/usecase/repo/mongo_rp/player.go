@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/davecgh/go-spew/spew"
 	"github.com/romeros69/basket/internal/apperrors"
 	"github.com/romeros69/basket/internal/entity"
@@ -12,6 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type PlayerRepo struct {
@@ -108,7 +110,26 @@ func (p *PlayerRepo) DeletePlayer(ctx context.Context, playerID string) error {
 	return nil
 }
 
-func (p *PlayerRepo) GetPlayerList(ctx context.Context) ([]*entity.Player, error) {
-	//TODO implement me
-	panic("implement me")
+func (p *PlayerRepo) GetPlayerList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Player, error) {
+	cursor, err := p.mngCollection.Find(context.Background(), bson.M{}, options.Find().SetLimit(pageSize).SetSkip((pageNumber-1)*pageSize))
+	if err != nil {
+		return nil, fmt.Errorf("mongo error: %w", err)
+	}
+	defer cursor.Close(context.Background())
+
+	var players []*entity.Player
+	for cursor.Next(context.Background()) {
+		var player *entity.Player
+		err := cursor.Decode(&player)
+		if err != nil {
+			return nil, fmt.Errorf("mongo error: %w", err)
+		}
+		players = append(players, player)
+	}
+
+	if err := cursor.Err(); err != nil {
+		return nil, fmt.Errorf("mongo error: %w", err)
+	}
+
+	return players, nil
 }

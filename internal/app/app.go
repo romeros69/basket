@@ -2,9 +2,6 @@ package app
 
 import (
 	"fmt"
-	"github.com/romeros69/basket/internal/usecase"
-	"github.com/romeros69/basket/internal/usecase/repo/mongo_rp"
-	"github.com/romeros69/basket/pkg/mongo"
 	"os"
 	"os/signal"
 	"syscall"
@@ -14,8 +11,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/romeros69/basket/config"
 	v1 "github.com/romeros69/basket/internal/controller/http/v1"
+	"github.com/romeros69/basket/internal/usecase"
+	"github.com/romeros69/basket/internal/usecase/repo/mongo_rp"
 	"github.com/romeros69/basket/pkg/httpserver"
 	"github.com/romeros69/basket/pkg/logger"
+	"github.com/romeros69/basket/pkg/mongo"
 )
 
 func Run(cfg *config.Config) {

@@ -172,6 +172,37 @@ paths:
       summary: Update player
       tags:
       - player
+  /player/list:
+    get:
+      description: Get player list
+      operationId: get-player-list
+      parameters:
+      - description: Enter page size
+        in: query
+        name: page_size
+        type: string
+      - description: Enter page number
+        in: query
+        name: page_number
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Player'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get player list
+      tags:
+      - player
 schemes:
 - http
 swagger: "2.0"
