@@ -7,7 +7,7 @@ http:
 
 mongo:
   mongo_url: "mongodb://mongo:mongo@localhost:27017/"
-  mongo_db: "players"
+  mongo_db: "basket"
 
 logger:
   log_level: 'debug'

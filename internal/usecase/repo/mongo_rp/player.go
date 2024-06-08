@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/romeros69/basket/internal/apperrors"
 	"github.com/romeros69/basket/internal/entity"
 	"github.com/romeros69/basket/internal/usecase"
@@ -20,18 +19,6 @@ type PlayerRepo struct {
 	mngCollection *mongo.Collection
 }
 
-const (
-	name        = "name"
-	surname     = "surname"
-	middleName  = "middle_name"
-	age         = "age"
-	height      = "height"
-	weight      = "weight"
-	team        = "team"
-	role        = "role"
-	citizenship = "citizenship"
-)
-
 func NewPlayerRepo(mng *mongodb.Mongo, collectionName string) *PlayerRepo {
 	return &PlayerRepo{
 		mngCollection: mng.Db.Collection(collectionName),
@@ -45,7 +32,7 @@ func (p *PlayerRepo) CreatePlayer(ctx context.Context, player *entity.Player) (s
 	if err != nil {
 		return "", fmt.Errorf("create player: %w", err)
 	}
-	spew.Dump(res.InsertedID.(primitive.ObjectID).String())
+
 	return res.InsertedID.(primitive.ObjectID).Hex(), nil
 }
 
