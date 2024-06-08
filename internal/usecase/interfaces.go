@@ -24,4 +24,22 @@ type (
 		DeletePlayer(ctx context.Context, playerID string) error
 		GetPlayerList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Player, error)
 	}
+
+	// Award - use case
+	Award interface {
+		CreateAward(ctx context.Context, award *entity.Award) (string, error)
+		UpdateAward(ctx context.Context, awardID string, award *entity.Award) (*entity.Award, error)
+		GetAward(ctx context.Context, awardID string) (*entity.Award, error)
+		DeleteAward(ctx context.Context, awardID string) error
+		GetAwardList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Award, error)
+	}
+
+	// AwardRp - mongodb
+	AwardRp interface {
+		CreateAward(ctx context.Context, award *entity.Award) (string, error)
+		UpdateAward(ctx context.Context, awardID string, award *entity.Award) (*entity.Award, error)
+		GetAward(ctx context.Context, awardID string) (*entity.Award, error)
+		DeleteAward(ctx context.Context, awardID string) error
+		GetAwardList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Award, error)
+	}
 )

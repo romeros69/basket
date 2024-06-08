@@ -1,5 +1,14 @@
 basePath: /v1
 definitions:
+  entity.Award:
+    properties:
+      name:
+        default: MVP of season 2024
+        type: string
+      surname:
+        default: Best player of season 2024
+        type: string
+    type: object
   entity.Player:
     properties:
       age:
@@ -29,6 +38,11 @@ definitions:
         default: 104
         type: integer
     type: object
+  v1.createAwardResp:
+    properties:
+      awardID:
+        type: string
+    type: object
   v1.createPlayerResp:
     properties:
       playerID:
@@ -47,6 +61,162 @@ info:
   title: Basket LAB
   version: "1.0"
 paths:
+  /award:
+    post:
+      consumes:
+      - application/json
+      description: Create new award
+      operationId: create-award
+      parameters:
+      - description: Enter new award info
+        in: body
+        name: award
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Award'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.createAwardResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Create award
+      tags:
+      - award
+  /award/{id}:
+    delete:
+      description: Delete award by id
+      operationId: delete-award
+      parameters:
+      - description: Enter id award
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Delete award
+      tags:
+      - award
+    get:
+      description: Get award by id
+      operationId: get-award
+      parameters:
+      - description: Enter award id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Award'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get award
+      tags:
+      - award
+    put:
+      consumes:
+      - application/json
+      description: Update award by id
+      operationId: update-award
+      parameters:
+      - description: Enter id award
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Enter new award info for update
+        in: body
+        name: award
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Award'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Award'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Update award
+      tags:
+      - award
+  /award/list:
+    get:
+      description: Get award list
+      operationId: get-award-list
+      parameters:
+      - description: Enter page size
+        in: query
+        name: page_size
+        type: string
+      - description: Enter page number
+        in: query
+        name: page_number
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Award'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get award list
+      tags:
+      - award
   /player:
     post:
       consumes:
@@ -106,7 +276,7 @@ paths:
       description: Get player by id
       operationId: get-player
       parameters:
-      - description: id пользователя
+      - description: Enter player id
         in: path
         name: id
         required: true

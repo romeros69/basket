@@ -15,6 +15,240 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/award": {
+            "post": {
+                "description": "Create new award",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "award"
+                ],
+                "summary": "Create award",
+                "operationId": "create-award",
+                "parameters": [
+                    {
+                        "description": "Enter new award info",
+                        "name": "award",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Award"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/v1.createAwardResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/award/list": {
+            "get": {
+                "description": "Get award list",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "award"
+                ],
+                "summary": "Get award list",
+                "operationId": "get-award-list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter page size",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter page number",
+                        "name": "page_number",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Award"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/award/{id}": {
+            "get": {
+                "description": "Get award by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "award"
+                ],
+                "summary": "Get award",
+                "operationId": "get-award",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter award id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Award"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update award by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "award"
+                ],
+                "summary": "Update award",
+                "operationId": "update-award",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id award",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Enter new award info for update",
+                        "name": "award",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Award"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Award"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete award by id",
+                "tags": [
+                    "award"
+                ],
+                "summary": "Delete award",
+                "operationId": "delete-award",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id award",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/player": {
             "post": {
                 "description": "Create new player",
@@ -117,7 +351,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "id пользователя",
+                        "description": "Enter player id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -251,6 +485,19 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "entity.Award": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": "MVP of season 2024"
+                },
+                "surname": {
+                    "type": "string",
+                    "default": "Best player of season 2024"
+                }
+            }
+        },
         "entity.Player": {
             "type": "object",
             "properties": {
@@ -288,6 +535,14 @@ const docTemplate = `{
                 "weight": {
                     "type": "integer",
                     "default": 104
+                }
+            }
+        },
+        "v1.createAwardResp": {
+            "type": "object",
+            "properties": {
+                "awardID": {
+                    "type": "string"
                 }
             }
         },

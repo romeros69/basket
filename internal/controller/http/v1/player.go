@@ -1,12 +1,10 @@
 package v1
 
 import (
-	"errors"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/romeros69/basket/internal/apperrors"
 	"github.com/romeros69/basket/internal/entity"
 	"github.com/romeros69/basket/internal/usecase"
 	"github.com/romeros69/basket/pkg/logger"
@@ -75,7 +73,7 @@ func (pr *playerRoutes) createPlayer(c *gin.Context) {
 // @Description Get player by id
 // @ID get-player
 // @Produce json
-// @Param id path string true "id пользователя"
+// @Param id path string true "Enter player id"
 // @Success 200 {object} entity.Player
 // @Failure 400 {object} errResponse
 // @Failure 404 {object} errResponse
@@ -183,17 +181,4 @@ func (pr *playerRoutes) listPlayers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, players)
-}
-
-func prepareError(c *gin.Context, err error) {
-	switch {
-	case errors.Is(err, apperrors.ErrPlayerNotFound):
-		errorResponse(c, http.StatusNotFound, err.Error())
-	case errors.Is(err, apperrors.ErrInvalidPlayerID) ||
-		errors.Is(err, apperrors.ErrInvalidPlayerPageSize) ||
-		errors.Is(err, apperrors.ErrInvalidPlayerPageNumber):
-		errorResponse(c, http.StatusBadRequest, err.Error())
-	default:
-		errorResponse(c, http.StatusInternalServerError, "internal error")
-	}
 }
