@@ -11,4 +11,8 @@ var (
 	ErrInvalidAwardID          = errors.New("invalid award id")
 	ErrInvalidAwardPageSize    = errors.New("invalid page size for listing award")
 	ErrInvalidAwardPageNumber  = errors.New("invalid page number for listing award")
+	ErrGameNotFound            = errors.New("game not found")
+	ErrInvalidGameID           = errors.New("invalid game id")
+	ErrInvalidGamePageSize     = errors.New("invalid page size for listing game")
+	ErrInvalidGamePageNumber   = errors.New("invalid page number for listing game")
 )

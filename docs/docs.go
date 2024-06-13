@@ -249,6 +249,240 @@ const docTemplate = `{
                 }
             }
         },
+        "/game": {
+            "post": {
+                "description": "Create new game",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "game"
+                ],
+                "summary": "Create game",
+                "operationId": "create-game",
+                "parameters": [
+                    {
+                        "description": "Enter new game info",
+                        "name": "game",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Game"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/v1.createGameResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/game/list": {
+            "get": {
+                "description": "Get game list",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "game"
+                ],
+                "summary": "Get game list",
+                "operationId": "get-game-list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter page size",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter page number",
+                        "name": "page_number",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Game"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/game/{id}": {
+            "get": {
+                "description": "Get game by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "game"
+                ],
+                "summary": "Get game",
+                "operationId": "get-game",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter game id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Game"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update game by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "game"
+                ],
+                "summary": "Update game",
+                "operationId": "update-game",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id game",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Enter new game info for update",
+                        "name": "award",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Game"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.Game"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete game by id",
+                "tags": [
+                    "game"
+                ],
+                "summary": "Delete game",
+                "operationId": "delete-game",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id game",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/player": {
             "post": {
                 "description": "Create new player",
@@ -498,6 +732,31 @@ const docTemplate = `{
                 }
             }
         },
+        "entity.Game": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "default": "12.03.24"
+                },
+                "first_team": {
+                    "type": "string",
+                    "default": "LA Lakers"
+                },
+                "league": {
+                    "type": "string",
+                    "default": "NBA"
+                },
+                "second_team": {
+                    "type": "string",
+                    "default": "Chicago Bulls"
+                },
+                "type": {
+                    "type": "string",
+                    "default": "final"
+                }
+            }
+        },
         "entity.Player": {
             "type": "object",
             "properties": {
@@ -541,7 +800,15 @@ const docTemplate = `{
         "v1.createAwardResp": {
             "type": "object",
             "properties": {
-                "awardID": {
+                "award_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.createGameResp": {
+            "type": "object",
+            "properties": {
+                "game_id": {
                     "type": "string"
                 }
             }

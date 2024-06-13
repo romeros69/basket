@@ -17,7 +17,7 @@ import (
 // @host        localhost:8080
 // @schemes 	http
 // @BasePath    /v1
-func NewRouter(handler *gin.Engine, p usecase.Player, a usecase.Award, l logger.Interface) {
+func NewRouter(handler *gin.Engine, p usecase.Player, a usecase.Award, g usecase.Game, l logger.Interface) {
 	handler.Use(gin.Logger())
 	handler.Use(gin.Recovery())
 
@@ -28,5 +28,6 @@ func NewRouter(handler *gin.Engine, p usecase.Player, a usecase.Award, l logger.
 	{
 		newPlayerRoutes(h, p, l)
 		newAwardRoutes(h, a, l)
+		newGameRoutes(h, g, l)
 	}
 }
