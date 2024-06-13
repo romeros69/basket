@@ -42,4 +42,21 @@ type (
 		DeleteAward(ctx context.Context, awardID string) error
 		GetAwardList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Award, error)
 	}
+
+	// Game - use case
+	Game interface {
+		CreateGame(ctx context.Context, game *entity.Game) (string, error)
+		UpdateGame(ctx context.Context, gameID string, game *entity.Game) (*entity.Game, error)
+		GetGame(ctx context.Context, gameID string) (*entity.Game, error)
+		DeleteGame(ctx context.Context, gameID string) error
+		GetGameList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Game, error)
+	}
+	// GameRp - mongodb
+	GameRp interface {
+		CreateGame(ctx context.Context, game *entity.Game) (string, error)
+		UpdateGame(ctx context.Context, gameID string, game *entity.Game) (*entity.Game, error)
+		GetGame(ctx context.Context, gameID string) (*entity.Game, error)
+		DeleteGame(ctx context.Context, gameID string) error
+		GetGameList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Game, error)
+	}
 )

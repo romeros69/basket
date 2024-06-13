@@ -9,6 +9,24 @@ definitions:
         default: Best player of season 2024
         type: string
     type: object
+  entity.Game:
+    properties:
+      date:
+        default: 12.03.24
+        type: string
+      first_team:
+        default: LA Lakers
+        type: string
+      league:
+        default: NBA
+        type: string
+      second_team:
+        default: Chicago Bulls
+        type: string
+      type:
+        default: final
+        type: string
+    type: object
   entity.Player:
     properties:
       age:
@@ -40,7 +58,12 @@ definitions:
     type: object
   v1.createAwardResp:
     properties:
-      awardID:
+      award_id:
+        type: string
+    type: object
+  v1.createGameResp:
+    properties:
+      game_id:
         type: string
     type: object
   v1.createPlayerResp:
@@ -217,6 +240,162 @@ paths:
       summary: Get award list
       tags:
       - award
+  /game:
+    post:
+      consumes:
+      - application/json
+      description: Create new game
+      operationId: create-game
+      parameters:
+      - description: Enter new game info
+        in: body
+        name: game
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Game'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.createGameResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Create game
+      tags:
+      - game
+  /game/{id}:
+    delete:
+      description: Delete game by id
+      operationId: delete-game
+      parameters:
+      - description: Enter id game
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Delete game
+      tags:
+      - game
+    get:
+      description: Get game by id
+      operationId: get-game
+      parameters:
+      - description: Enter game id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Game'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get game
+      tags:
+      - game
+    put:
+      consumes:
+      - application/json
+      description: Update game by id
+      operationId: update-game
+      parameters:
+      - description: Enter id game
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Enter new game info for update
+        in: body
+        name: award
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Game'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Game'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Update game
+      tags:
+      - game
+  /game/list:
+    get:
+      description: Get game list
+      operationId: get-game-list
+      parameters:
+      - description: Enter page size
+        in: query
+        name: page_size
+        type: string
+      - description: Enter page number
+        in: query
+        name: page_number
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Game'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get game list
+      tags:
+      - game
   /player:
     post:
       consumes:

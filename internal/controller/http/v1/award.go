@@ -31,7 +31,7 @@ func newAwardRoutes(handler *gin.RouterGroup, a usecase.Award, l logger.Interfac
 }
 
 type createAwardResp struct {
-	AwardID string `json:"awardID"`
+	AwardID string `json:"award_id"`
 }
 
 // @Summary Create award
