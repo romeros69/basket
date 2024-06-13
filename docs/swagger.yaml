@@ -27,6 +27,15 @@ definitions:
         default: final
         type: string
     type: object
+  entity.League:
+    properties:
+      name:
+        default: NBA
+        type: string
+      season:
+        default: 2023/2024
+        type: string
+    type: object
   entity.Player:
     properties:
       age:
@@ -64,6 +73,11 @@ definitions:
   v1.createGameResp:
     properties:
       game_id:
+        type: string
+    type: object
+  v1.createLeagueResp:
+    properties:
+      league_id:
         type: string
     type: object
   v1.createPlayerResp:
@@ -339,7 +353,7 @@ paths:
         type: string
       - description: Enter new game info for update
         in: body
-        name: award
+        name: game
         required: true
         schema:
           $ref: '#/definitions/entity.Game'
@@ -396,6 +410,162 @@ paths:
       summary: Get game list
       tags:
       - game
+  /league:
+    post:
+      consumes:
+      - application/json
+      description: Create new league
+      operationId: create-league
+      parameters:
+      - description: Enter new league info
+        in: body
+        name: league
+        required: true
+        schema:
+          $ref: '#/definitions/entity.League'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.createLeagueResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Create league
+      tags:
+      - league
+  /league/{id}:
+    delete:
+      description: Delete league by id
+      operationId: delete-league
+      parameters:
+      - description: Enter id league
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Delete league
+      tags:
+      - league
+    get:
+      description: Get league by id
+      operationId: get-league
+      parameters:
+      - description: Enter league id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.League'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get league
+      tags:
+      - league
+    put:
+      consumes:
+      - application/json
+      description: Update league by id
+      operationId: update-league
+      parameters:
+      - description: Enter id league
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Enter new league info for update
+        in: body
+        name: league
+        required: true
+        schema:
+          $ref: '#/definitions/entity.League'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.League'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Update league
+      tags:
+      - league
+  /league/list:
+    get:
+      description: Get league list
+      operationId: get-league-list
+      parameters:
+      - description: Enter page size
+        in: query
+        name: page_size
+        type: string
+      - description: Enter page number
+        in: query
+        name: page_number
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.League'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get league list
+      tags:
+      - league
   /player:
     post:
       consumes:

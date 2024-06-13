@@ -93,7 +93,7 @@ func (gr *gameRoutes) getGame(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "Enter id game"
-// @Param award body entity.Game true "Enter new game info for update"
+// @Param game body entity.Game true "Enter new game info for update"
 // @Success 200 {object} entity.Game
 // @Failure 400 {object} errResponse
 // @Failure 404 {object} errResponse

@@ -51,6 +51,7 @@ type (
 		DeleteGame(ctx context.Context, gameID string) error
 		GetGameList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Game, error)
 	}
+
 	// GameRp - mongodb
 	GameRp interface {
 		CreateGame(ctx context.Context, game *entity.Game) (string, error)
@@ -58,5 +59,23 @@ type (
 		GetGame(ctx context.Context, gameID string) (*entity.Game, error)
 		DeleteGame(ctx context.Context, gameID string) error
 		GetGameList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.Game, error)
+	}
+
+	// League - use case
+	League interface {
+		CreateLeague(ctx context.Context, league *entity.League) (string, error)
+		UpdateLeague(ctx context.Context, leagueID string, league *entity.League) (*entity.League, error)
+		GetLeague(ctx context.Context, leagueID string) (*entity.League, error)
+		DeleteLeague(ctx context.Context, leagueID string) error
+		GetLeagueList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.League, error)
+	}
+
+	// LeagueRp - mongodb
+	LeagueRp interface {
+		CreateLeague(ctx context.Context, league *entity.League) (string, error)
+		UpdateLeague(ctx context.Context, leagueID string, league *entity.League) (*entity.League, error)
+		GetLeague(ctx context.Context, leagueID string) (*entity.League, error)
+		DeleteLeague(ctx context.Context, leagueID string) error
+		GetLeagueList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.League, error)
 	}
 )

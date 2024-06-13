@@ -407,7 +407,7 @@ const docTemplate = `{
                     },
                     {
                         "description": "Enter new game info for update",
-                        "name": "award",
+                        "name": "game",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -453,6 +453,240 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Enter id game",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/league": {
+            "post": {
+                "description": "Create new league",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "league"
+                ],
+                "summary": "Create league",
+                "operationId": "create-league",
+                "parameters": [
+                    {
+                        "description": "Enter new league info",
+                        "name": "league",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.League"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/v1.createLeagueResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/league/list": {
+            "get": {
+                "description": "Get league list",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "league"
+                ],
+                "summary": "Get league list",
+                "operationId": "get-league-list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter page size",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter page number",
+                        "name": "page_number",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.League"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/league/{id}": {
+            "get": {
+                "description": "Get league by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "league"
+                ],
+                "summary": "Get league",
+                "operationId": "get-league",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter league id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.League"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update league by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "league"
+                ],
+                "summary": "Update league",
+                "operationId": "update-league",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id league",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Enter new league info for update",
+                        "name": "league",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.League"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.League"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete league by id",
+                "tags": [
+                    "league"
+                ],
+                "summary": "Delete league",
+                "operationId": "delete-league",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter id league",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -757,6 +991,19 @@ const docTemplate = `{
                 }
             }
         },
+        "entity.League": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": "NBA"
+                },
+                "season": {
+                    "type": "string",
+                    "default": "2023/2024"
+                }
+            }
+        },
         "entity.Player": {
             "type": "object",
             "properties": {
@@ -809,6 +1056,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "game_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.createLeagueResp": {
+            "type": "object",
+            "properties": {
+                "league_id": {
                     "type": "string"
                 }
             }
