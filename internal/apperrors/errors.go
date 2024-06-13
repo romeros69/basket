@@ -15,4 +15,8 @@ var (
 	ErrInvalidGameID           = errors.New("invalid game id")
 	ErrInvalidGamePageSize     = errors.New("invalid page size for listing game")
 	ErrInvalidGamePageNumber   = errors.New("invalid page number for listing game")
+	ErrLeagueNotFound          = errors.New("league not found")
+	ErrInvalidLeagueID         = errors.New("invalid league id")
+	ErrInvalidLeaguePageSize   = errors.New("invalid page size fir listing league")
+	ErrInvalidLeaguePageNumber = errors.New("invalid page number for listing league")
 )

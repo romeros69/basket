@@ -31,11 +31,13 @@ func Run(cfg *config.Config) {
 	playerRepo := mongo_rp.NewPlayerRepo(mongoDB, "players")
 	awardRepo := mongo_rp.NewAwardRepo(mongoDB, "awards")
 	gameRepo := mongo_rp.NewGameRepo(mongoDB, "games")
+	leagueRepo := mongo_rp.NewLeagueRepo(mongoDB, "leagues")
 
 	// Use case
 	playerUseCase := usecase.NewPlayerUC(playerRepo)
 	awardUseCase := usecase.NewAwardUC(awardRepo)
 	gameUseCase := usecase.NewGameUC(gameRepo)
+	leagueUseCase := usecase.NewLeagueUC(leagueRepo)
 
 	// HTTP Server
 	handler := gin.New()
@@ -47,7 +49,7 @@ func Run(cfg *config.Config) {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	v1.NewRouter(handler, playerUseCase, awardUseCase, gameUseCase, l)
+	v1.NewRouter(handler, playerUseCase, awardUseCase, gameUseCase, leagueUseCase, l)
 	httpServer := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 
 	l.Info("server is start")
