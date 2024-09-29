@@ -20,7 +20,7 @@ type GameRepo struct {
 
 func NewGameRepo(mng *mongodb.Mongo, collectionName string) *GameRepo {
 	return &GameRepo{
-		mngCollection: mng.Db.Collection(collectionName),
+		mngCollection: mng.DB.Collection(collectionName),
 	}
 }
 

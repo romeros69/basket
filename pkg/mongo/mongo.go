@@ -9,7 +9,7 @@ import (
 )
 
 type Mongo struct {
-	Db *mongo.Database
+	DB *mongo.Database
 }
 
 func New(cfg *config.Config) (*Mongo, error) {
@@ -24,6 +24,6 @@ func New(cfg *config.Config) (*Mongo, error) {
 		return nil, err
 	}
 	return &Mongo{
-		Db: mClient.Database(cfg.MongoDB),
+		DB: mClient.Database(cfg.MongoDB),
 	}, nil
 }

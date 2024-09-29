@@ -947,6 +947,188 @@
                     }
                 }
             }
+        },
+        "/stat_awards": {
+            "post": {
+                "description": "Create new record",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "record"
+                ],
+                "summary": "Create record",
+                "operationId": "create-record",
+                "parameters": [
+                    {
+                        "description": "Enter new record info",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.RewardStat"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_awards/match/{id}": {
+            "get": {
+                "description": "Get stat by match id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stat"
+                ],
+                "summary": "Get stat by match",
+                "operationId": "get-stat-match",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter match id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.RewardStat"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_awards/player/{id}": {
+            "get": {
+                "description": "Get stat by player id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stat"
+                ],
+                "summary": "Get stat by player",
+                "operationId": "get-stat-player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter player id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.RewardStat"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_awards/reward/{id}": {
+            "get": {
+                "description": "Get stat by reward id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stat"
+                ],
+                "summary": "Get stat by reward",
+                "operationId": "get-stat-reward",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter reward id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.RewardStat"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_awards/tournament/{id}": {
+            "get": {
+                "description": "Get stat by tournament id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stat"
+                ],
+                "summary": "Get stat by tournament",
+                "operationId": "get-stat-tournament",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter tournament id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entity.RewardStat"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1038,6 +1220,23 @@
                 "weight": {
                     "type": "integer",
                     "default": 104
+                }
+            }
+        },
+        "entity.RewardStat": {
+            "type": "object",
+            "properties": {
+                "match": {
+                    "type": "string"
+                },
+                "player": {
+                    "type": "string"
+                },
+                "reward": {
+                    "type": "string"
+                },
+                "tournament": {
+                    "type": "string"
                 }
             }
         },

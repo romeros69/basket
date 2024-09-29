@@ -20,7 +20,7 @@ type AwardRepo struct {
 
 func NewAwardRepo(mng *mongodb.Mongo, collectionName string) *AwardRepo {
 	return &AwardRepo{
-		mngCollection: mng.Db.Collection(collectionName),
+		mngCollection: mng.DB.Collection(collectionName),
 	}
 }
 

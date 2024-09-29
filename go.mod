@@ -13,6 +13,8 @@ require (
 	go.mongodb.org/mongo-driver v1.15.0
 )
 
+require github.com/neo4j/neo4j-go-driver/v5 v5.25.0
+
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect

@@ -14,6 +14,7 @@ type (
 		HTTP  `yaml:"http"`
 		Log   `yaml:"logger"`
 		Mongo `yaml:"mongo"`
+		Neo4j `yaml:"neo4j"`
 	}
 
 	App struct {
@@ -28,6 +29,12 @@ type (
 	Mongo struct {
 		MongoURL string `env-required:"true" yaml:"mongo_url" env:"MONGO_URL"`
 		MongoDB  string `env-required:"true" yaml:"mongo_db" env:"MONGO_DB"`
+	}
+
+	Neo4j struct {
+		Neo4jURL string `env-required:"true" yaml:"neo4j_url" env:"NEO4J_URL"`
+		Neo4jLogin string `env-required:"true" yaml:"neo4j_login" env:"NEO4J_LOGIN"`
+		Neo4jPassword string `env-required:"true" yaml:"neo4j_password" env:"NEO4J_PASSWORD"`
 	}
 
 	Log struct {

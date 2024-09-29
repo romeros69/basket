@@ -65,6 +65,17 @@ definitions:
         default: 104
         type: integer
     type: object
+  entity.RewardStat:
+    properties:
+      match:
+        type: string
+      player:
+        type: string
+      reward:
+        type: string
+      tournament:
+        type: string
+    type: object
   v1.createAwardResp:
     properties:
       award_id:
@@ -722,6 +733,127 @@ paths:
       summary: Get player list
       tags:
       - player
+  /stat_awards:
+    post:
+      consumes:
+      - application/json
+      description: Create new record
+      operationId: create-record
+      parameters:
+      - description: Enter new record info
+        in: body
+        name: player
+        required: true
+        schema:
+          $ref: '#/definitions/entity.RewardStat'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Create record
+      tags:
+      - record
+  /stat_awards/match/{id}:
+    get:
+      description: Get stat by match id
+      operationId: get-stat-match
+      parameters:
+      - description: Enter match id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.RewardStat'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get stat by match
+      tags:
+      - stat
+  /stat_awards/player/{id}:
+    get:
+      description: Get stat by player id
+      operationId: get-stat-player
+      parameters:
+      - description: Enter player id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.RewardStat'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get stat by player
+      tags:
+      - stat
+  /stat_awards/reward/{id}:
+    get:
+      description: Get stat by reward id
+      operationId: get-stat-reward
+      parameters:
+      - description: Enter reward id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.RewardStat'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get stat by reward
+      tags:
+      - stat
+  /stat_awards/tournament/{id}:
+    get:
+      description: Get stat by tournament id
+      operationId: get-stat-tournament
+      parameters:
+      - description: Enter tournament id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.RewardStat'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get stat by tournament
+      tags:
+      - stat
 schemes:
 - http
 swagger: "2.0"

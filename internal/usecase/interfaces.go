@@ -78,4 +78,22 @@ type (
 		DeleteLeague(ctx context.Context, leagueID string) error
 		GetLeagueList(ctx context.Context, pageSize, pageNumber int64) ([]*entity.League, error)
 	}
+
+	// StatAwards - use case
+	StatAwards interface {
+		CreateRecord(context.Context, entity.RewardStat) error
+		ViewPlayersAndRewardsInTournament(context.Context, string) ([]entity.RewardStat, error)
+		ViewPlayersAndRewardsInMatch(context.Context, string) ([]entity.RewardStat, error)
+		ViewRewardsForPlayer(context.Context, string) ([]entity.RewardStat, error)
+		ViewWhoGotSpecificReward(context.Context, string) ([]entity.RewardStat, error)
+	}
+
+	// StatAwardsRp - neo4j
+	StatAwardsRp interface {
+		CreateRecord(context.Context, entity.RewardStat) error
+		ViewPlayersAndRewardsInTournament(context.Context, string) ([]entity.RewardStat, error)
+		ViewPlayersAndRewardsInMatch(context.Context, string) ([]entity.RewardStat, error)
+		ViewRewardsForPlayer(context.Context, string) ([]entity.RewardStat, error)
+		ViewWhoGotSpecificReward(context.Context, string) ([]entity.RewardStat, error)
+	}
 )

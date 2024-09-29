@@ -21,7 +21,7 @@ type PlayerRepo struct {
 
 func NewPlayerRepo(mng *mongodb.Mongo, collectionName string) *PlayerRepo {
 	return &PlayerRepo{
-		mngCollection: mng.Db.Collection(collectionName),
+		mngCollection: mng.DB.Collection(collectionName),
 	}
 }
 

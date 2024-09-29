@@ -20,7 +20,7 @@ type LeagueRepo struct {
 
 func NewLeagueRepo(mng *mongodb.Mongo, collectionName string) *LeagueRepo {
 	return &LeagueRepo{
-		mngCollection: mng.Db.Collection(collectionName),
+		mngCollection: mng.DB.Collection(collectionName),
 	}
 }
 
