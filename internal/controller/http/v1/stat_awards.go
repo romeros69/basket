@@ -64,7 +64,7 @@ func (sr *statAwardsRoutes) createRecord(c *gin.Context) {
 // @ID get-stat-tournament
 // @Produce json
 // @Param id path string true "Enter tournament id"
-// @Success 200 {object} entity.RewardStat
+// @Success 200 {object} []entity.RewardStat
 // @Failure 500 {object} errResponse
 // @Router /stat_awards/tournament/{id} [get]
 func (sr *statAwardsRoutes) viewPlayersAndRewardsInTournament(c *gin.Context) {
@@ -86,7 +86,7 @@ func (sr *statAwardsRoutes) viewPlayersAndRewardsInTournament(c *gin.Context) {
 // @ID get-stat-match
 // @Produce json
 // @Param id path string true "Enter match id"
-// @Success 200 {object} entity.RewardStat
+// @Success 200 {object} []entity.RewardStat
 // @Failure 500 {object} errResponse
 // @Router /stat_awards/match/{id} [get]
 func (sr *statAwardsRoutes) viewPlayersAndRewardsInMatch(c *gin.Context) {
@@ -108,7 +108,7 @@ func (sr *statAwardsRoutes) viewPlayersAndRewardsInMatch(c *gin.Context) {
 // @ID get-stat-player
 // @Produce json
 // @Param id path string true "Enter player id"
-// @Success 200 {object} entity.RewardStat
+// @Success 200 {object} []entity.RewardStat
 // @Failure 500 {object} errResponse
 // @Router /stat_awards/player/{id} [get]
 func (sr *statAwardsRoutes) ViewRewardsForPlayer(c *gin.Context) {
@@ -130,7 +130,7 @@ func (sr *statAwardsRoutes) ViewRewardsForPlayer(c *gin.Context) {
 // @ID get-stat-reward
 // @Produce json
 // @Param id path string true "Enter reward id"
-// @Success 200 {object} entity.RewardStat
+// @Success 200 {object} []entity.RewardStat
 // @Failure 500 {object} errResponse
 // @Router /stat_awards/reward/{id} [get]
 func (sr *statAwardsRoutes) ViewWhoGotSpecificReward(c *gin.Context) {

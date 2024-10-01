@@ -1,5 +1,6 @@
 MONGO_SERVICE = mongodb
 NEO4J_SERVICE = neo4j
+CLICKHOUSE_SERVICE = clickhouse
 
 swag-v1: ### swag init
 	swag init -g internal/controller/http/v1/router.go
@@ -20,6 +21,14 @@ neo4j-up:
 neo4j-stop:
 	sudo docker-compose stop $(NEO4J_SERVICE)
 .PHONY: neo4j-stop
+
+clickhouse-up:
+	sudo docker-compose up --build $(CLICKHOUSE_SERVICE)
+.PHONY: clickhouse-up
+
+clickhouse-stop:
+	sudo docker-compose stop $(CLICKHOUSE_SERVICE)
+.PHONY: clickhouse-stop
 
 run-app: swag-v1
 	go mod tidy && go mod download && \

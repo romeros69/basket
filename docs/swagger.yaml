@@ -65,6 +65,25 @@ definitions:
         default: 104
         type: integer
     type: object
+  entity.PlayerStat:
+    properties:
+      assists:
+        type: integer
+      avgGoals:
+        type: number
+      goals:
+        type: integer
+      interceptions:
+        type: integer
+      matchId:
+        type: string
+      playerId:
+        type: string
+      rebounds:
+        type: integer
+      totalAvgStats:
+        type: number
+    type: object
   entity.RewardStat:
     properties:
       match:
@@ -774,7 +793,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.RewardStat'
+            items:
+              $ref: '#/definitions/entity.RewardStat'
+            type: array
         "500":
           description: Internal Server Error
           schema:
@@ -798,7 +819,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.RewardStat'
+            items:
+              $ref: '#/definitions/entity.RewardStat'
+            type: array
         "500":
           description: Internal Server Error
           schema:
@@ -822,7 +845,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.RewardStat'
+            items:
+              $ref: '#/definitions/entity.RewardStat'
+            type: array
         "500":
           description: Internal Server Error
           schema:
@@ -846,7 +871,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.RewardStat'
+            items:
+              $ref: '#/definitions/entity.RewardStat'
+            type: array
         "500":
           description: Internal Server Error
           schema:
@@ -854,6 +881,124 @@ paths:
       summary: Get stat by tournament
       tags:
       - stat
+  /stat_player:
+    post:
+      consumes:
+      - application/json
+      description: Create new stat player
+      operationId: create-stat-player
+      parameters:
+      - description: Enter new player stat
+        in: body
+        name: player
+        required: true
+        schema:
+          $ref: '#/definitions/entity.PlayerStat'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Create stat player
+      tags:
+      - stat-player
+  /stat_player/{pid}/{mid}:
+    get:
+      description: Get player stats by player id and match id
+      operationId: get-player-stats
+      parameters:
+      - description: Enter player id
+        in: path
+        name: pid
+        required: true
+        type: string
+      - description: Enter match id
+        in: path
+        name: mid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.PlayerStat'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get player stats by player id and match id
+      tags:
+      - player-stats
+  /stat_player/all_points/{mid}:
+    get:
+      description: Get players stat avg points by match id
+      operationId: get-player-points
+      parameters:
+      - description: Enter avg points
+        in: query
+        name: points
+        required: true
+        type: string
+      - description: Enter match id
+        in: path
+        name: mid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.PlayerStat'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get players stat avg points by match id
+      tags:
+      - player-stats
+  /stat_player/goals/{mid}:
+    get:
+      description: Get players stat avg goals by match id
+      operationId: get-player-goals
+      parameters:
+      - description: Enter avg goals
+        in: query
+        name: goals
+        required: true
+        type: string
+      - description: Enter match id
+        in: path
+        name: mid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.PlayerStat'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResponse'
+      summary: Get players stat avg goals by match id
+      tags:
+      - player-stats
 schemes:
 - http
 swagger: "2.0"

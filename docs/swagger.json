@@ -1010,7 +1010,10 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entity.RewardStat"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.RewardStat"
+                            }
                         }
                     },
                     "500": {
@@ -1046,7 +1049,10 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entity.RewardStat"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.RewardStat"
+                            }
                         }
                     },
                     "500": {
@@ -1082,7 +1088,10 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entity.RewardStat"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.RewardStat"
+                            }
                         }
                     },
                     "500": {
@@ -1118,7 +1127,186 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entity.RewardStat"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.RewardStat"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_player": {
+            "post": {
+                "description": "Create new stat player",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stat-player"
+                ],
+                "summary": "Create stat player",
+                "operationId": "create-stat-player",
+                "parameters": [
+                    {
+                        "description": "Enter new player stat",
+                        "name": "player",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.PlayerStat"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_player/all_points/{mid}": {
+            "get": {
+                "description": "Get players stat avg points by match id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "player-stats"
+                ],
+                "summary": "Get players stat avg points by match id",
+                "operationId": "get-player-points",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter avg points",
+                        "name": "points",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter match id",
+                        "name": "mid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.PlayerStat"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_player/goals/{mid}": {
+            "get": {
+                "description": "Get players stat avg goals by match id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "player-stats"
+                ],
+                "summary": "Get players stat avg goals by match id",
+                "operationId": "get-player-goals",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter avg goals",
+                        "name": "goals",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter match id",
+                        "name": "mid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.PlayerStat"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stat_player/{pid}/{mid}": {
+            "get": {
+                "description": "Get player stats by player id and match id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "player-stats"
+                ],
+                "summary": "Get player stats by player id and match id",
+                "operationId": "get-player-stats",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Enter player id",
+                        "name": "pid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter match id",
+                        "name": "mid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.PlayerStat"
+                            }
                         }
                     },
                     "500": {
@@ -1220,6 +1408,35 @@
                 "weight": {
                     "type": "integer",
                     "default": 104
+                }
+            }
+        },
+        "entity.PlayerStat": {
+            "type": "object",
+            "properties": {
+                "assists": {
+                    "type": "integer"
+                },
+                "avgGoals": {
+                    "type": "number"
+                },
+                "goals": {
+                    "type": "integer"
+                },
+                "interceptions": {
+                    "type": "integer"
+                },
+                "matchId": {
+                    "type": "string"
+                },
+                "playerId": {
+                    "type": "string"
+                },
+                "rebounds": {
+                    "type": "integer"
+                },
+                "totalAvgStats": {
+                    "type": "number"
                 }
             }
         },

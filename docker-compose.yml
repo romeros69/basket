@@ -19,3 +19,13 @@ services:
       - NEO4J_AUTH=neo4j/password123
       - NEO4J_dbms_security_auth__enabled=true
       - NEO4J_dbms_connector_bolt_tls__level=DISABLED
+  clickhouse:
+    image: yandex/clickhouse-server:latest
+    container_name: clickhouse
+    ports:
+      - "8123:8123"  # HTTP-интерфейс для запросов
+      - "9000:9000"  # TCP-интерфейс для запросов
+    environment:
+      - CLICKHOUSE_DB=default
+      - CLICKHOUSE_USER=default
+      - CLICKHOUSE_PASSWORD=default

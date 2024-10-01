@@ -96,4 +96,20 @@ type (
 		ViewRewardsForPlayer(context.Context, string) ([]entity.RewardStat, error)
 		ViewWhoGotSpecificReward(context.Context, string) ([]entity.RewardStat, error)
 	}
+
+	// StatPlayer - use case
+	StatPlayer interface {
+		InsertPlayerStat(context.Context, entity.PlayerStat) error
+		GetPlayerStatsByIDAndMatch(ctx context.Context, playerID, matchID string) ([]entity.PlayerStat, error)
+		GetPlayersWithAvgGoalsGreaterThanByMatch(ctx context.Context, minAvgGoals float64, matchID string) ([]entity.PlayerStat, error)
+		GetPlayersWithTotalAvgStatsGreaterThanByMatch(ctx context.Context, minTotalAvg float64, matchID string) ([]entity.PlayerStat, error)
+	}
+
+	// StatPlayerRp - ClickHouse
+	StatPlayerRp interface {
+		InsertPlayerStat(context.Context, entity.PlayerStat) error
+		GetPlayerStatsByIDAndMatch(ctx context.Context, playerID, matchID string) ([]entity.PlayerStat, error)
+		GetPlayersWithAvgGoalsGreaterThanByMatch(ctx context.Context, minAvgGoals float64, matchID string) ([]entity.PlayerStat, error)
+		GetPlayersWithTotalAvgStatsGreaterThanByMatch(ctx context.Context, minTotalAvg float64, matchID string) ([]entity.PlayerStat, error)
+	}
 )

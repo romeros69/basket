@@ -12,8 +12,10 @@ import (
 	"github.com/romeros69/basket/config"
 	v1 "github.com/romeros69/basket/internal/controller/http/v1"
 	"github.com/romeros69/basket/internal/usecase"
+	"github.com/romeros69/basket/internal/usecase/repo/chouse_rp.go"
 	"github.com/romeros69/basket/internal/usecase/repo/mongo_rp"
 	"github.com/romeros69/basket/internal/usecase/repo/neo4j_rp"
+	"github.com/romeros69/basket/pkg/chouse"
 	"github.com/romeros69/basket/pkg/httpserver"
 	"github.com/romeros69/basket/pkg/logger"
 	"github.com/romeros69/basket/pkg/mongo"
@@ -23,13 +25,20 @@ import (
 func Run(cfg *config.Config) {
 	l := logger.New(cfg.Log.Level)
 
-	//// MongoDB
+	// MongoDB
 	mongoDB, err := mongo.New(cfg)
 	if err != nil {
 		panic(err)
 	}
 
+	// Neo4J
 	neoDB, err := neo4j.New(cfg)
+	if err != nil {
+		panic(err)
+	}
+
+	// Clickhouse
+	chous, err := chouse.New(cfg)
 	if err != nil {
 		panic(err)
 	}
@@ -40,6 +49,7 @@ func Run(cfg *config.Config) {
 	gameRepo := mongo_rp.NewGameRepo(mongoDB, "games")
 	leagueRepo := mongo_rp.NewLeagueRepo(mongoDB, "leagues")
 	statsAwardsRepo := neo4j_rp.NewStatAwardsRepo(neoDB)
+	statsPlayerRepo := chouse_rp.NewChouseRepo(chous)
 
 	// Use case
 	playerUseCase := usecase.NewPlayerUC(playerRepo)
@@ -47,6 +57,7 @@ func Run(cfg *config.Config) {
 	gameUseCase := usecase.NewGameUC(gameRepo)
 	leagueUseCase := usecase.NewLeagueUC(leagueRepo)
 	statsAwardsUseCase := usecase.NewStatAwardsUC(statsAwardsRepo)
+	statsPlayerUseCase := usecase.NewStatPlayerUC(statsPlayerRepo)
 
 	// HTTP Server
 	handler := gin.New()
@@ -58,7 +69,7 @@ func Run(cfg *config.Config) {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	v1.NewRouter(handler, playerUseCase, awardUseCase, gameUseCase, leagueUseCase, statsAwardsUseCase, l)
+	v1.NewRouter(handler, playerUseCase, awardUseCase, gameUseCase, leagueUseCase, statsAwardsUseCase, statsPlayerUseCase, l)
 	httpServer := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 
 	l.Info("server is start")
