@@ -55,7 +55,7 @@ func (sr *statPlayerRoutes) insertPlayer(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, nil)
+	c.JSON(http.StatusCreated, nil)
 }
 
 // @Summary Get player stats by player id and match id
