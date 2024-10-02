@@ -27,5 +27,3 @@ services:
       - "9000:9000"  # TCP-интерфейс для запросов
     environment:
       - CLICKHOUSE_DB=default
-      - CLICKHOUSE_USER=default
-      - CLICKHOUSE_PASSWORD=default

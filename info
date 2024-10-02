@@ -1,0 +1,4 @@
+curl http://localhost:8123/\?query\=SELECT+count\(\)+FROM+player_stats
+
+http://localhost:7474/browser/
+MATCH (n) RETURN count(n);
