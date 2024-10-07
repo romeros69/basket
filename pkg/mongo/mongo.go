@@ -14,7 +14,10 @@ type Mongo struct {
 
 func New(cfg *config.Config) (*Mongo, error) {
 	ctx := context.Background()
-	cOpts := options.Client().ApplyURI(cfg.MongoURL)
+
+    loggerOptions := options.Logger().SetComponentLevel(options.LogComponentCommand, options.LogLevelDebug)
+    cOpts := options.Client().ApplyURI(cfg.MongoURL).SetLoggerOptions(loggerOptions)
+
 	mClient, err := mongo.Connect(ctx, cOpts)
 	if err != nil {
 		return nil, err

@@ -15,6 +15,7 @@ type (
 		Log   `yaml:"logger"`
 		Mongo `yaml:"mongo"`
 		Neo4j `yaml:"neo4j"`
+		ClickHouse `yaml:"clickhouse"`
 	}
 
 	App struct {
@@ -29,6 +30,10 @@ type (
 	Mongo struct {
 		MongoURL string `env-required:"true" yaml:"mongo_url" env:"MONGO_URL"`
 		MongoDB  string `env-required:"true" yaml:"mongo_db" env:"MONGO_DB"`
+	}
+	
+    ClickHouse struct {
+		ClickHouseURL string `env-required:"true" yaml:"clickhouse_url" env:"CLICKHOUSE_URL"`
 	}
 
 	Neo4j struct {

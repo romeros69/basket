@@ -6,14 +6,18 @@ http:
   port: "8080"
 
 mongo:
-  mongo_url: "mongodb://mongo:mongo@localhost:27017/"
+  mongo_url: "mongodb://127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/?replicaSet=rs0"
   mongo_db: "basket"
 
 neo4j:
-  neo4j_url: "bolt://localhost:7687"
+  neo4j_url: "neo4j://127.0.0.1:7687"
   neo4j_login: "neo4j"
-  neo4j_password: "password123"
+  neo4j_password: "neo4j"
 
 logger:
   log_level: "debug"
   rollbar_env: "basket"
+
+clickhouse:
+  clickhouse_url: "clickhouse://localhost:9001,localhost:9002,localhost:9003/default?debug=true"
+

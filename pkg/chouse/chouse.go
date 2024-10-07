@@ -16,8 +16,7 @@ type Chouse struct {
 
 func New(cfg *config.Config) (*Chouse, error) {
 	// Используем DSN для ClickHouse
-	dsn := "clickhouse://@localhost:9000/default?debug=true"
-	db, err := sql.Open("clickhouse", dsn) // Указываем драйвер "clickhouse"
+	db, err := sql.Open("clickhouse", cfg.ClickHouse.ClickHouseURL) // Указываем драйвер "clickhouse"
 	if err != nil {
 		return nil, fmt.Errorf("ошибка при подключении к ClickHouse: %w", err)
 	}
@@ -42,7 +41,7 @@ func createTable(ctx context.Context, db *sql.DB) error {
 		CREATE TABLE IF NOT EXISTS player_stats
 		(
 			player_id        String,  -- Идентификатор игрока
-			match_id         String,     -- Идентификатор матча
+			match_id         Int,     -- Идентификатор матча
 			goals            Int,     -- Количество забитых голов
 			assists          Int,     -- Количество передач
 			interceptions    Int,     -- Количество перехватов
